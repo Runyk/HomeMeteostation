@@ -51,7 +51,7 @@ HomeMeteostation/
 
 ### 1. Подготовка Arduino
 1. Установите библиотеку DHT sensor library
-2. Загрузите скетч из папки arduino_sketch/
+2. Загрузите скетч meteostation_1.ino
 3. Подключите DHT11:
 -  VCC  → 5V
 -  DATA → пин 2 (d2)
