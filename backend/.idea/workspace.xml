@@ -5,20 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="59a351f9-040b-4cf4-b7ca-06b9288d8d81" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/meteostation-backend/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/meteostation-backend/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/meteostation-backend/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/meteostation-backend/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/meteostation-backend/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/meteostation-backend/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/meteostation-backend/src/main/java/ru/runyk/meteostation_backend/MeteostationBackendApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/meteostation-backend/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/meteostation-backend/src/test/java/ru/runyk/meteostation_backend/MeteostationBackendApplicationTests.java" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/runyk/meteostation_backend/HomeMeteostationApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/runyk/meteostation_backend/TestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/runyk/meteostation_backend/controller/WeatherController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/runyk/meteostation_backend/dto/SensorDataDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/runyk/meteostation_backend/dto/WeatherResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/runyk/meteostation_backend/service/ArduinoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/runyk/meteostation_backend/service/WeatherService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/runyk/meteostation_backend/MeteostationBackendApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -40,6 +49,13 @@
     "accountId": "21e31736-1685-46b5-9631-79080f5d7c67"
   }
 }]]></component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 7
 }]]></component>
@@ -53,7 +69,16 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Maven.meteostation-backend [clean].executor": "Run",
+    "Maven.meteostation-backend [compile].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.AllInOneApplication.executor": "Run",
+    "Spring Boot.HomeMeteostationApplication.executor": "Run",
+    "Spring Boot.MeteostationBackendApplication.executor": "Run",
     "git-widget-placeholder": "backend-spring",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
@@ -61,9 +86,37 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager" selected="Spring Boot.HomeMeteostationApplication">
+    <configuration name="AllInOneApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="meteostation-backend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.runyk.meteostation_backend.AllInOneApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.runyk.meteostation_backend.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HomeMeteostationApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="meteostation-backend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.runyk.meteostation_backend.HomeMeteostationApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.AllInOneApplication" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -80,7 +133,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1769769460620</updated>
-      <workItem from="1769769462489" duration="608000" />
+      <workItem from="1769769462489" duration="6386000" />
     </task>
     <servers />
   </component>
