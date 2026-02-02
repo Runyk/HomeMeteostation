@@ -50,7 +50,7 @@ public class TelegramBotService extends TelegramLongPollingBot {
         }
     }
 
-    @Scheduled(fixedDelay = 120000)
+    @Scheduled(fixedDelay = 60000)
     public void sendNotification() {
         SensorDataDTO data = arduinoService.getLastSensorData();
 
