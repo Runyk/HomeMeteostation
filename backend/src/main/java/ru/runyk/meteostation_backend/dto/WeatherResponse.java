@@ -28,4 +28,16 @@ public class WeatherResponse {
     public static WeatherResponse error(String message){
         return new WeatherResponse(false, message, null);
     }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public SensorDataDTO getData() {
+        return data;
+    }
 }

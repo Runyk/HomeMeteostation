@@ -35,7 +35,7 @@ public class TelegramBotService extends TelegramLongPollingBot {
     // Отправление отчета от Бота.
     // fixedDelay = n, где n - интервал времени между отправлениями отчетов (в миллисекундах).
     // initialDelay - задержка между запуском программы и первым отправлением отчета.
-    @Scheduled(fixedDelay = 60000, initialDelay = 1000)
+    @Scheduled(fixedDelay = 60000, initialDelay = 10000)
     public void sendNotification() {
         SensorDataDTO data = arduinoService.getLastSensorData();
 
