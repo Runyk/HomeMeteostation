@@ -3,6 +3,7 @@ package ru.runyk.meteostation_backend.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 
+// DTO для данных с датчика
 public class SensorDataDTO {
     private Double temperature; // Температура в °C
     private Double humidity;    // Влажность в %
@@ -10,12 +11,12 @@ public class SensorDataDTO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timestamp; // Время измерения
 
-    // Конструктор
     public SensorDataDTO(Double temperature, Double humidity) {
         this.temperature = temperature;
         this.humidity = humidity;
         this.timestamp = LocalDateTime.now();
     }
+
 
     public Double getTemperature() {
         return temperature;

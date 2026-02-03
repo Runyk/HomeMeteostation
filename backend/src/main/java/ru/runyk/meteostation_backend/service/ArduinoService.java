@@ -15,6 +15,7 @@ public class ArduinoService {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private SensorDataDTO lastSensorData;
 
+    //
     @PostConstruct
     public void init() {
         System.out.println("=== Запуск ArduinoService ===");
@@ -22,6 +23,7 @@ public class ArduinoService {
         startReadingData();
     }
 
+    // Получение подключенного порта
     private void connectToArduino() {
         System.out.println("Поиск Arduino...");
 
@@ -29,6 +31,7 @@ public class ArduinoService {
             System.out.println("Найден порт: " + port.getSystemPortName() +
                     " - " + port.getDescriptivePortName());
 
+            // Ищем порт, в описании которого есть "arduino" или "ch340"
             if (port.getDescriptivePortName().toLowerCase().contains("arduino") ||
                     port.getDescriptivePortName().toLowerCase().contains("ch340")) {
                 arduinoPort = port;
@@ -36,6 +39,7 @@ public class ArduinoService {
             }
         }
 
+        //
         if (arduinoPort == null && SerialPort.getCommPorts().length > 0) {
             arduinoPort = SerialPort.getCommPorts()[0];
             System.out.println("ВНИМАНИЕ: Arduino не найден, используем первый порт: " +
@@ -56,6 +60,7 @@ public class ArduinoService {
         }
     }
 
+    // Запуск потока для непрерывного чтения данных с датчика
     private void startReadingData() {
         if (arduinoPort == null || !arduinoPort.isOpen()) {
             System.out.println("ПРЕДУПРЕЖДЕНИЕ: Порт не открыт, данные не читаются");
@@ -64,6 +69,7 @@ public class ArduinoService {
 
         new Thread(() -> {
             try (Scanner scanner = new Scanner(arduinoPort.getInputStream())) {
+                // Чтение строк пока порт открыт
                 while (arduinoPort.isOpen() && scanner.hasNextLine()) {
                     String line = scanner.nextLine().trim();
                     processSensorData(line);
@@ -76,6 +82,7 @@ public class ArduinoService {
         System.out.println("Запущено чтение данных с Arduino");
     }
 
+    // Чтение входящего JSON и обработка данных с него
     private void processSensorData(String jsonLine) {
         try {
             if (jsonLine.startsWith("{")) {
@@ -99,10 +106,12 @@ public class ArduinoService {
         return lastSensorData;
     }
 
+    // Проверка подключения порта
     public boolean isConnected() {
         return arduinoPort != null && arduinoPort.isOpen();
     }
 
+    // Освобождение порта при остановке программы
     @PreDestroy
     public void cleanup() {
         if (isConnected()) {
@@ -111,6 +120,7 @@ public class ArduinoService {
         }
     }
 
+    // Класс для чтения JSON
     private static class SensorData {
         private Double temperature;
         private Double humidity;
@@ -119,16 +129,8 @@ public class ArduinoService {
             return temperature;
         }
 
-        public void setTemperature(Double temperature) {
-            this.temperature = temperature;
-        }
-
         public Double getHumidity() {
             return humidity;
-        }
-
-        public void setHumidity(Double humidity) {
-            this.humidity = humidity;
         }
     }
 }

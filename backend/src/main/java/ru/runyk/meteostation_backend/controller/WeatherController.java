@@ -13,9 +13,8 @@ import ru.runyk.meteostation_backend.service.ArduinoService;
 @RequestMapping("/weather")
 public class WeatherController {
 
-    private ArduinoService arduinoService;
+    private final ArduinoService arduinoService;
 
-    // Конструктор
     @Autowired
     public WeatherController(ArduinoService arduinoService) {
         this.arduinoService = arduinoService;
@@ -35,6 +34,7 @@ public class WeatherController {
     public ResponseEntity<WeatherResponse> getLatestWeatherData() {
         SensorDataDTO lastData = arduinoService.getLastSensorData();
 
+        // Если данные пустые, возвращаем HTTP 204 No Content с сообщением
         if (lastData == null) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT)
                     .body(WeatherResponse.error("Данные с датчика еще не получены"));
@@ -44,6 +44,7 @@ public class WeatherController {
         return ResponseEntity.ok(WeatherResponse.success(lastData));
     }
 
+    // Обработка GET запросов для получения информации о статусе подключения Arduino
     @GetMapping("/status")
     public ResponseEntity<?> getArduinoStatus() {
         return ResponseEntity.ok().body(

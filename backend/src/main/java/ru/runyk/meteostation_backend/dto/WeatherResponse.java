@@ -5,6 +5,7 @@ import ru.runyk.meteostation_backend.service.ArduinoService;
 
 import java.util.List;
 
+// DTO для HTTP ответов
 public class WeatherResponse {
     private boolean success;
     private String message;
