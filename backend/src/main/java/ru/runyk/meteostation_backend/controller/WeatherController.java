@@ -8,6 +8,7 @@ import ru.runyk.meteostation_backend.dto.SensorDataDTO;
 import ru.runyk.meteostation_backend.dto.WeatherResponse;
 import ru.runyk.meteostation_backend.service.ArduinoService;
 
+// Контроллер для возвращения данных
 @RestController
 @RequestMapping("/weather")
 public class WeatherController {
@@ -20,36 +21,27 @@ public class WeatherController {
         this.arduinoService = arduinoService;
     }
 
+    // Обработка POST запросов на /weather
     @PostMapping
     public ResponseEntity<WeatherResponse> saveWeatherData(
             @RequestBody SensorDataDTO sensorData) {
 
-        WeatherResponse response = new WeatherResponse(
-                true,
-                "Данные успешно приняты",
-                sensorData
-        );
-
-        return ResponseEntity.ok(response);
+        // Возвращение HTTP 200 OK с данными
+        return ResponseEntity.ok(WeatherResponse.success(sensorData));
     }
 
+    // Обработка GET запросов для получения актуальных данных с датчика
     @GetMapping("/latest")
     public ResponseEntity<WeatherResponse> getLatestWeatherData() {
         SensorDataDTO lastData = arduinoService.getLastSensorData();
 
         if (lastData == null) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT)
-                    .body(new WeatherResponse(false,
-                            "Данные с датчика еще не получены", null));
+                    .body(WeatherResponse.error("Данные с датчика еще не получены"));
         }
 
-        WeatherResponse response = new WeatherResponse(
-                true,
-                "Последние данные с датчика",
-                lastData
-        );
-
-        return ResponseEntity.ok(response);
+        // Возвращение HTTP 200 OK с данными
+        return ResponseEntity.ok(WeatherResponse.success(lastData));
     }
 
     @GetMapping("/status")

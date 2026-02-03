@@ -105,7 +105,7 @@ public class ArduinoService {
 
     @PreDestroy
     public void cleanup() {
-        if (arduinoPort != null && arduinoPort.isOpen()) {
+        if (isConnected()) {
             arduinoPort.closePort();
             System.out.println("Порт Arduino закрыт");
         }
