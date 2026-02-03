@@ -19,10 +19,12 @@ public class WeatherResponse {
         this.data = data;
     }
 
+    // Метод для обработки успешного принятия данных
     public static WeatherResponse success(SensorDataDTO data){
         return new WeatherResponse(true, "Данные успешно приняты", data);
     }
 
+    // Метод для обработки ошибки принятия данных
     public static WeatherResponse error(String message){
         return new WeatherResponse(false, message, null);
     }

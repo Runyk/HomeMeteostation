@@ -15,7 +15,7 @@ public class ArduinoService {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private SensorDataDTO lastSensorData;
 
-    //
+    // Запуск получения данных о подключении порта с Arduino и запуск чтения данных с него
     @PostConstruct
     public void init() {
         System.out.println("=== Запуск ArduinoService ===");
@@ -39,17 +39,19 @@ public class ArduinoService {
             }
         }
 
-        //
+        // Если порт не определился, попытка подключиться к другому порту
         if (arduinoPort == null && SerialPort.getCommPorts().length > 0) {
             arduinoPort = SerialPort.getCommPorts()[0];
             System.out.println("ВНИМАНИЕ: Arduino не найден, используем первый порт: " +
                     arduinoPort.getSystemPortName());
         }
 
+        // Если порт найден, начинаем чтение на скорости 115200 бод
         if (arduinoPort != null) {
             arduinoPort.setBaudRate(115200);
             arduinoPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
 
+            // Если порт открылся, выводим сообщение об успешном подключении
             if (arduinoPort.openPort()) {
                 System.out.println("УСПЕХ: Подключено к " + arduinoPort.getSystemPortName());
             } else {

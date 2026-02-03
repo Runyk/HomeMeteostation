@@ -8,7 +8,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import ru.runyk.meteostation_backend.service.TelegramBotService;
 
-// Класс для
+// Класс для конфигурации Telegram Бота
 @Configuration
 public class TelegramBotConfig {
 
@@ -29,6 +29,7 @@ public class TelegramBotConfig {
         return new TelegramBotService(botToken, chatId, botUsername);
     }
 
+    // Активация Telegram Бота
     @Bean
     public TelegramBotsApi telegramBotsApi(TelegramBotService botService) throws TelegramApiException {
         try {
