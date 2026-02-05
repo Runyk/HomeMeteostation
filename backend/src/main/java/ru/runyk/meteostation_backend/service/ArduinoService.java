@@ -116,7 +116,7 @@ public class ArduinoService {
 
                 sensorDataRepository.save(entity);
 
-                System.out.println(lastSensorData.getTimestamp() + "ДАННЫЕ: " + lastSensorData.getTemperature() +
+                System.out.println("ДАННЫЕ: " + lastSensorData.getTemperature() +
                         "°C, " + lastSensorData.getHumidity() + "%");
             }
         } catch (Exception e) {
