@@ -1,5 +1,6 @@
 package ru.runyk.meteostation_backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -21,17 +22,13 @@ public class SensorData {
     @Column(name = "recorded_at")
     private LocalDateTime recordedAt;
 
-    @Column(name = "create_at")
-    private LocalDateTime createAt;
-
     public SensorData() {
     }
 
-    public SensorData(Double temperature, Double humidity, LocalDateTime recordedAt, LocalDateTime createAt) {
+    public SensorData(Double temperature, Double humidity, LocalDateTime recordedAt) {
         this.temperature = temperature;
         this.humidity = humidity;
         this.recordedAt = recordedAt;
-        this.createAt = createAt;
     }
 
     public Long getId() {
@@ -48,10 +45,6 @@ public class SensorData {
 
     public LocalDateTime getRecordedAt() {
         return recordedAt;
-    }
-
-    public LocalDateTime getCreateAt() {
-        return createAt;
     }
 
     public void setTemperature(Double temperature) {

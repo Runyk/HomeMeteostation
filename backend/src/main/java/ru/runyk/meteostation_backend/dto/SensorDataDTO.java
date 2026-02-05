@@ -8,7 +8,7 @@ public class SensorDataDTO {
     private Double temperature; // Температура в °C
     private Double humidity;    // Влажность в %
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime timestamp; // Время измерения
 
     public SensorDataDTO(Double temperature, Double humidity, LocalDateTime now) {
