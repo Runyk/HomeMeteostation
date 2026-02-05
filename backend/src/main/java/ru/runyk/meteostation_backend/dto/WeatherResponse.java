@@ -1,6 +1,5 @@
 package ru.runyk.meteostation_backend.dto;
 
-import org.springframework.http.ResponseEntity;
 import ru.runyk.meteostation_backend.service.ArduinoService;
 
 import java.util.List;

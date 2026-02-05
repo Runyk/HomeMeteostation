@@ -6,14 +6,26 @@ import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.springframework.stereotype.Service;
 import ru.runyk.meteostation_backend.dto.SensorDataDTO;
+import ru.runyk.meteostation_backend.entities.SensorData;
+import ru.runyk.meteostation_backend.repositories.SensorDataRepository;
+
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 @Service
 public class ArduinoService {
 
     private SerialPort arduinoPort;
+
     private final ObjectMapper objectMapper = new ObjectMapper();
+
     private SensorDataDTO lastSensorData;
+
+    private final SensorDataRepository sensorDataRepository;
+
+    public ArduinoService(SensorDataRepository sensorDataRepository) {
+        this.sensorDataRepository = sensorDataRepository;
+    }
 
     // Запуск получения данных о подключении порта с Arduino и запуск чтения данных с него
     @PostConstruct
@@ -88,12 +100,22 @@ public class ArduinoService {
     private void processSensorData(String jsonLine) {
         try {
             if (jsonLine.startsWith("{")) {
-                SensorData sensorData = objectMapper.readValue(jsonLine, SensorData.class);
+                SensorData rawData = objectMapper.readValue(jsonLine, SensorData.class);
 
                 lastSensorData = new SensorDataDTO(
-                        sensorData.getTemperature(),
-                        sensorData.getHumidity()
+                        rawData.getTemperature(),
+                        rawData.getHumidity(),
+                        LocalDateTime.now()
                 );
+
+                SensorData entity = new SensorData(
+                        rawData.getTemperature(),
+                        rawData.getHumidity(),
+                        LocalDateTime.now(),
+                        LocalDateTime.now()
+                );
+
+                sensorDataRepository.save(entity);
 
                 System.out.println("ДАННЫЕ: " + lastSensorData.getTemperature() +
                         "°C, " + lastSensorData.getHumidity() + "%");
@@ -104,10 +126,6 @@ public class ArduinoService {
         }
     }
 
-    public SensorDataDTO getLastSensorData() {
-        return lastSensorData;
-    }
-
     // Проверка подключения порта
     public boolean isConnected() {
         return arduinoPort != null && arduinoPort.isOpen();
@@ -115,15 +133,16 @@ public class ArduinoService {
 
     // Освобождение порта при остановке программы
     @PreDestroy
-    public void cleanup() {
+    public void cleanup() throws InterruptedException {
         if (isConnected()) {
             arduinoPort.closePort();
+            Thread.sleep(1000);
             System.out.println("Порт Arduino закрыт");
         }
     }
 
     // Класс для чтения JSON
-    private static class SensorData {
+    private static class RawSensorData {
         private Double temperature;
         private Double humidity;
 
@@ -134,5 +153,9 @@ public class ArduinoService {
         public Double getHumidity() {
             return humidity;
         }
+    }
+
+    public SensorDataDTO getLastSensorData() {
+        return lastSensorData;
     }
 }

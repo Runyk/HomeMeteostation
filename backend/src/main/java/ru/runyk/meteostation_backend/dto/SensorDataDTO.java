@@ -11,7 +11,7 @@ public class SensorDataDTO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timestamp; // Время измерения
 
-    public SensorDataDTO(Double temperature, Double humidity) {
+    public SensorDataDTO(Double temperature, Double humidity, LocalDateTime now) {
         this.temperature = temperature;
         this.humidity = humidity;
         this.timestamp = LocalDateTime.now();
